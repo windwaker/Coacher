@@ -1,0 +1,105 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<script>
+
+$(document).ready(function() {
+
+    $("#add_player").click(function() {
+       $('.ui.modal').modal('show');
+    });
+
+    $("#save").click(function(){
+        var first = $("#first_name").val();
+        var last = $("#last_name").val();
+        var dob = $("#dob").val();
+
+        $.ajax({
+            url: '/player',
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify({"first_name": first, "last_name": last, "date_of_birth": dob}),
+            dataType: 'json'
+        });
+        $('.ui.modal').modal('hide');
+    });
+
+});
+
+</script>
+
+<form>
+  <div class="ui input">
+    <input name="first_name" type="text" placeholder="Search..." value="{{ first_name or ''}}">
+  </div>
+
+  <div class="ui checkbox">
+    <input name="active" type="checkbox" {% if active %} checked="checked" {% endif %} >
+    <label>Active</label>
+  </div>
+
+  <button id="search" type="submit" class="ui button primary">
+    Search
+  </button>
+</form>
+
+<div>
+  <button id="add_player" type="button" class="ui positive basic button">
+  Add a Player
+  </button>
+</div>
+
+
+<table class="ui celled table">
+  <thead>
+    <tr>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Date of Birth</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for player in players %}
+    <tr>
+      <td>{{ player.first_name }}</td>
+      <td>{{ player.last_name }}</td>
+      <td>{{ player.date_of_birth }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<div class="ui modal">
+  <i class="close icon"></i>
+  <div class="header">
+    Add a player
+  </div>
+  <div class="content">
+    <div class="ui form">
+      <div class="field">
+        <label>First Name</label>
+        <textarea id="first_name"></textarea>
+      </div>
+      <div class="field">
+        <label>Last Name</label>
+        <textarea id="last_name"></textarea>
+      </div>
+      <div class="field">
+        <label>Date Of Birth</label>
+        <textarea id="dob"></textarea>
+      </div>
+    </div>
+  </div>
+  <div class="actions">
+    <div class="ui red deny button">
+      Nope
+    </div>
+    <div id="save" class="ui positive right labeled icon button">
+      Yep, Create it!
+      <i class="plus icon"></i>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+
