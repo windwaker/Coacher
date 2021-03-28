@@ -1,3 +1,12 @@
+## TODO List
+
+### Move app to Heroku
+### Add alembic support
+### Add tests for API & UI
+### Add oauth / jwt to protect endpoints
+### Leverage Heroku pipelines
+
+
 ## Project Setup
 
 poetry new ocr
@@ -15,6 +24,14 @@ poetry show --tree
 https://www.youtube.com/watch?v=JC5q22g3yQM&list=RDCMUCbsI5Rw9_yLccfoMEYYxDCg&start_radio=1&t=446
 
 https://github.com/SouravJohar/ocr-tool/blob/main/templates/index.html
+
+## Alembic
+
+alembic init alembic
+
+Set __sqlalchemy.url = sqlite:///data.db__ in alembic.ini file
+
+alembic revision -m "Init database"
 
 
 ## Virtual Env

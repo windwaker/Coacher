@@ -27,6 +27,7 @@ class Guardian(Base):
     # add relationship to multiple players
     player_id = Column(Integer, ForeignKey('players.id'))
     players = relationship('Player', back_populates='guardians')
+    addresses = relationship('Address', back_populates='guardians')
 
 
 class Address(Base):
